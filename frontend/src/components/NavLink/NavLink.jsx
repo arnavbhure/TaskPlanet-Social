@@ -1,6 +1,6 @@
 import { NavLink as RouterNavLink } from "react-router-dom";
 
-function NavLink({ children, to }) {
+function NavLink({ children, to, icon: Icon }) {
   return (
     <RouterNavLink
       className={({ isActive }) =>
@@ -9,7 +9,13 @@ function NavLink({ children, to }) {
       end
       to={to}
     >
-      {children}
+      <Icon
+        className="bottom-nav__icon"
+        aria-hidden="true"
+        size={22}
+        strokeWidth={2.25}
+      />
+      <span className="bottom-nav__label">{children}</span>
     </RouterNavLink>
   );
 }

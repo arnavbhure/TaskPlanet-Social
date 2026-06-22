@@ -8,7 +8,7 @@ function Login() {
 
   return (
     <section className="login-page" aria-labelledby="login-heading">
-      <p className="login-page__brand">TaskPlanet</p>
+      <p className="login-page__brand">TaskPlanet Social</p>
 
       <div className="login-card">
         <header className="login-card__header">

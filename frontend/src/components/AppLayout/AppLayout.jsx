@@ -26,7 +26,7 @@ function AppLayout({ routes }) {
 
       <nav className="bottom-nav" aria-label="Primary navigation">
         {routes.map((route) => (
-          <NavLink key={route.path} to={route.path}>
+          <NavLink key={route.path} to={route.path} icon={route.icon}>
             {route.label}
           </NavLink>
         ))}
