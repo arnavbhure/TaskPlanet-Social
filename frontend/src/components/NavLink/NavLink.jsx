@@ -6,6 +6,7 @@ function NavLink({ children, to }) {
       className={({ isActive }) =>
         `bottom-nav__link${isActive ? " bottom-nav__link--active" : ""}`
       }
+      end
       to={to}
     >
       {children}

@@ -1,10 +1,6 @@
 export const navigationRoutes = [
   {
     path: "/",
-    label: "Home",
-  },
-  {
-    path: "/login",
     label: "Login",
   },
   {
