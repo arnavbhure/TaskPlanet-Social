@@ -1,13 +1,9 @@
+import CreatePostCard from "../../components/CreatePostCard/CreatePostCard";
+import SocialFilterChips from "../../components/SocialFilterChips/SocialFilterChips";
 import SocialHeader from "../../components/SocialHeader/SocialHeader";
+import SocialPostCard from "../../components/SocialPostCard/SocialPostCard";
 import SocialQuickActions from "../../components/SocialQuickActions/SocialQuickActions";
-
-const filterItems = [
-  "All Post",
-  "For You",
-  "Most Liked",
-  "Most Commented",
-  "Most Shared",
-];
+import { mockPosts } from "../../data/mockPosts";
 
 function SocialFeed() {
   return (
@@ -16,22 +12,16 @@ function SocialFeed() {
 
       <SocialQuickActions />
 
+      <CreatePostCard />
+
       <main className="social-content" aria-label="Social feed content">
-        <div className="social-filter-row" aria-label="Feed filters">
-          {filterItems.map((filter, index) => (
-            <button
-              className={`social-filter-chip${
-                index === 0 ? " social-filter-chip--active" : ""
-              }`}
-              key={filter}
-              type="button"
-            >
-              {filter}
-            </button>
+        <SocialFilterChips />
+
+        <div className="social-feed-surface">
+          {mockPosts.map((post) => (
+            <SocialPostCard key={post.id} post={post} />
           ))}
         </div>
-
-        <div className="social-feed-surface" aria-hidden="true" />
       </main>
     </section>
   );
