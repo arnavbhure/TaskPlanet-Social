@@ -179,10 +179,10 @@ POST /api/posts/:id/comment
 ### Live Demo
 
 Frontend:
-YOUR_VERCEL_URL
+https://task-planet-social-orpin.vercel.app
 
 Backend:
-YOUR_RENDER_URL
+https://taskplanet-social-4kfp.onrender.com
 
 ---
 
