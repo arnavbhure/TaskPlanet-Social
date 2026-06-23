@@ -1,14 +1,18 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import "./Signup.css";
+import signupApi from "../../api/user/signupApi";
 
 function Signup() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const passwordsMatch =
     form.password.length > 0 && form.password === form.confirmPassword;
@@ -25,8 +29,40 @@ function Signup() {
     setForm((current) => ({ ...current, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    if (isSubmitting || !isFormValid) return;
+
+    setIsSubmitting(true);
+    const loadingToastId = toast.loading("Creating account...");
+
+    try {
+      const data = {
+        username: form.username,
+        email: form.email,
+        password: form.password,
+        confirmPassword: form.confirmPassword,
+      };
+
+      const response = await signupApi(data);
+      console.log("Signup response:", response);
+      if (response?.success) {
+        toast.success(response?.message || "Account created", {
+          id: loadingToastId,
+        });
+        navigate("/");
+      } else {
+        toast.error(response?.message || "Signup failed", {
+          id: loadingToastId,
+        });
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Signup failed", {
+        id: loadingToastId,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -92,7 +128,11 @@ function Signup() {
             />
           </div>
 
-          <button className="signup-submit" type="submit" disabled={!isFormValid}>
+          <button
+            className="signup-submit"
+            type="submit"
+            disabled={!isFormValid || isSubmitting}
+          >
             Create Account
           </button>
         </form>

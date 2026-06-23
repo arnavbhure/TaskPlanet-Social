@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 
 const loginController = async (req, res) => {
   try {
-  } catch (err) {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email: email.toLowerCase() });
@@ -49,7 +48,7 @@ const loginController = async (req, res) => {
       success: true,
       message: "Login successful",
     });
-
+  } catch (err) {
     console.log("Error in loginController:", err.message || err);
     return res
       .status(500)

@@ -7,19 +7,9 @@ const { signupValidator } = require("../validators/singup.validator");
 const authRouter = express.Router();
 
 /* For login */
-authRouter.post(
-  "/auth/login",
-  loginValidator,
-  validateRequest,
-  loginController,
-);
+authRouter.post("/login", loginValidator, validateRequest, loginController);
 
 /* For signup */
-authRouter.post(
-  "/auth/signup",
-  signupValidator,
-  validateRequest,
-  signupController,
-);
+authRouter.post("/signup", signupValidator, validateRequest, signupController);
 
 module.exports = authRouter;
