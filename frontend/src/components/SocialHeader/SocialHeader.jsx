@@ -1,4 +1,6 @@
 import { Bell, IndianRupee, Star } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const stats = [
   {
@@ -16,6 +18,14 @@ const stats = [
 ];
 
 function SocialHeader() {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login", { replace: true });
+  };
+
   return (
     <header className="social-header">
       <div className="social-header__title-group">
@@ -52,7 +62,12 @@ function SocialHeader() {
           <Bell aria-hidden="true" size={21} fill="currentColor" strokeWidth={2.1} />
         </button>
 
-        <button className="social-avatar-button" type="button" aria-label="Profile">
+        <button
+          className="social-avatar-button"
+          type="button"
+          aria-label="Logout"
+          onClick={handleLogout}
+        >
           <span className="social-avatar-button__badge">20%</span>
         </button>
       </div>

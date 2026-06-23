@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "./Login.css";
 import loginApi from "../../api/user/loginApi";
+import { useAuth } from "../../context/AuthContext";
 
 function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [form, setForm] = useState({ email: "", password: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -30,6 +32,7 @@ function Login() {
       const response = await loginApi(data);
 
       if (response?.success) {
+        await login();
         toast.success(response?.message || "Login successful", {
           id: loadingToastId,
         });

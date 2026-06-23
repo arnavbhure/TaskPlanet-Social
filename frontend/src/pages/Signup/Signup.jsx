@@ -50,7 +50,7 @@ function Signup() {
         toast.success(response?.message || "Account created", {
           id: loadingToastId,
         });
-        navigate("/");
+        navigate("/login");
       } else {
         toast.error(response?.message || "Signup failed", {
           id: loadingToastId,
@@ -139,7 +139,7 @@ function Signup() {
 
         <p className="signup-footer">
           Already have an account?{" "}
-          <Link className="signup-footer__link" to="/">
+          <Link className="signup-footer__link" to="/login">
             Login
           </Link>
         </p>

@@ -2,6 +2,7 @@ import axios from "axios";
 import store from "../store/index";
 import { isLoggedInActions } from "../store/user/isLoginSlice";
 import { userActions } from "../store/user/userSlice";
+import { notifyUnauthorized } from "./authSession";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -22,6 +23,7 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       store.dispatch(isLoggedInActions.removeLoginState());
       store.dispatch(userActions.clearUserInfo());
+      notifyUnauthorized();
     }
 
     return Promise.reject(error);

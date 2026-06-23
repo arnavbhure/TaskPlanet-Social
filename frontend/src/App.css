@@ -952,3 +952,17 @@
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   }
 }
+
+.auth-loading {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  background: var(--color-page-bg);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+}
+
+.auth-loading p {
+  margin: 0;
+}
