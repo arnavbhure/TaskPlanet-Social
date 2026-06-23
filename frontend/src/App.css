@@ -633,6 +633,114 @@
   justify-content: flex-end;
 }
 
+.social-post-card__metric--button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+}
+
+.social-post-card__metric--button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.social-post-card__metric--liked {
+  color: #ef4444;
+}
+
+.social-post-card__metric--active {
+  color: var(--color-primary);
+}
+
+.social-post-card__comments {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid #edf0f3;
+}
+
+.social-post-card__comment-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.social-post-card__comment {
+  margin-bottom: var(--space-3);
+}
+
+.social-post-card__comment-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.social-post-card__comment-header strong {
+  color: #030712;
+  font-size: var(--font-size-md);
+}
+
+.social-post-card__comment-header time {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.social-post-card__comment p {
+  margin: var(--space-1) 0 0;
+  color: #171717;
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+  overflow-wrap: anywhere;
+}
+
+.social-post-card__comments-empty {
+  margin: 0 0 var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-md);
+}
+
+.social-post-card__comment-form {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.social-post-card__comment-input {
+  flex: 1;
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-pill);
+  background: #fff;
+  color: #171717;
+  font-size: var(--font-size-md);
+}
+
+.social-post-card__comment-input:focus {
+  outline: 2px solid rgba(6, 182, 212, 0.35);
+  border-color: var(--color-primary);
+}
+
+.social-post-card__comment-submit {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  color: var(--color-card-bg);
+  cursor: pointer;
+}
+
+.social-post-card__comment-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
 /* Floating Action Button (FAB) */
 :root {
   --fab-size: 56px;

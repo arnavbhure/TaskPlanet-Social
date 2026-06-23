@@ -1,6 +1,7 @@
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
 
 const commentValidator = [
+  param("id").isMongoId().withMessage("Invalid post id"),
   body("text")
     .trim()
     .notEmpty()

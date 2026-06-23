@@ -4,7 +4,8 @@ const streamifier = require("streamifier");
 
 const createPost = async (req, res) => {
   try {
-    const { text } = req.body;
+    // make sure we reference req.body.text reliably
+    const text = req.body?.text ?? "";
 
     let image_url = "";
 
@@ -13,6 +14,7 @@ const createPost = async (req, res) => {
         const stream = cloudinary.uploader.upload_stream(
           {
             folder: "social-posts",
+            resource_type: "image",
           },
           (error, result) => {
             if (error) return reject(error);
@@ -22,11 +24,12 @@ const createPost = async (req, res) => {
 
         streamifier.createReadStream(req.file.buffer).pipe(stream);
       });
-
-      image_url = uploadResult.secure_url;
+      // Some Cloudinary responses use `secure_url`, ensure we store the actual URL.
+      image_url = uploadResult?.secure_url || uploadResult?.url || "";
+     
     }
 
-    if (!text?.trim() && !image_url) {
+    if (!text.trim() && !image_url) {
       return res.status(400).json({
         success: false,
         message: "Post must contain text or image",

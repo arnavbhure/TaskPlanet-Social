@@ -78,31 +78,13 @@ function CreatePost({ onPostCreated }) {
     try {
       const created = await createPostApi(formData);
 
-      const createdPost = {
-        // keep compatibility with the existing feed card, but also support backend fields
-        _id: created?._id,
-        id: created?._id,
-        username: created?.username,
-        handle: created?.user?.username ? `@${created.user.username}` : "",
-        text: created?.text ?? created?.text,
-        timestamp: timeLabelFromDate(created?.createdAt),
-        image_url: created?.image_url,
-        likesCount: Array.isArray(created?.likes) ? created.likes.length : 0,
-        commentsCount: Array.isArray(created?.comments)
-          ? created.comments.length
-          : 0,
-        likes: created?.likes,
-        comments: created?.comments,
-      };
-
       setText("");
       clearImage();
       setSuccess("Posted successfully");
       toast.success("Post created");
-      onPostCreated?.(created);
 
       // Let parent prepend after we cleared; onPostCreated should map itself if needed.
-      onPostCreated?.(createdPost);
+      onPostCreated?.(created);
     } catch (e) {
       const serverMessage = e?.response?.data?.message;
       setError(serverMessage || "Failed to create post");

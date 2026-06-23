@@ -9,7 +9,9 @@ const api = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
   headers: {
-    "Content-Type": "application/json",
+    // IMPORTANT: do NOT force Content-Type for multipart/form-data.
+    // Axios will set the proper Content-Type + boundary when the request body is FormData.
+    "Content-Type": undefined,
   },
 });
 
