@@ -28,7 +28,14 @@ app.use("/api/auth", authRouter);
 
 /* Router for post services */
 app.use("/api", postRouter);
+
+/* Router for like and comment services */
 app.use("/api", likeCommentRouter);
+
+/* router for ping (to keep server awake) */
+app.get("/api/ping", (req, res) => {
+  res.status(200).json({ message: "ok" });
+});
 
 connectDB().then(() => {
   server.listen(PORT, () => {
