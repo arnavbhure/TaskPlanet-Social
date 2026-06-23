@@ -19,8 +19,53 @@ const metricItems = [
 ];
 
 function SocialPostCard({ post }) {
-  const { avatarLabel, avatarUrl, handle, image, metrics, text, timestamp, username } =
-    post;
+  // Support both existing mockPosts shape AND backend shape
+  const {
+    avatarLabel,
+    avatarUrl,
+    handle,
+    image,
+    metrics,
+    text,
+    timestamp,
+    username,
+    image_url,
+    likes,
+    comments,
+  } = post;
+
+  const likesCount =
+    typeof metrics?.likes === "number"
+      ? metrics.likes
+      : Array.isArray(likes)
+        ? likes.length
+        : typeof post.likesCount === "number"
+          ? post.likesCount
+          : 0;
+
+  const commentsCount =
+    typeof metrics?.comments === "number"
+      ? metrics.comments
+      : Array.isArray(comments)
+        ? comments.length
+        : typeof post.commentsCount === "number"
+          ? post.commentsCount
+          : 0;
+
+  const sharesCount =
+    typeof metrics?.shares === "number"
+      ? metrics.shares
+      : typeof post.sharesCount === "number"
+        ? post.sharesCount
+        : 0;
+
+  const cardImage =
+    image?.src || image_url
+      ? {
+          src: image?.src || image_url,
+          alt: image?.alt || "Post image",
+        }
+      : null;
 
   return (
     <article className="social-post-card">
@@ -48,20 +93,28 @@ function SocialPostCard({ post }) {
 
       <p className="social-post-card__text">{text}</p>
 
-      {image && (
-        <img className="social-post-card__image" src={image.src} alt={image.alt} />
+      {cardImage && (
+        <img
+          className="social-post-card__image"
+          src={cardImage.src}
+          alt={cardImage.alt}
+        />
       )}
 
       <footer className="social-post-card__metrics" aria-label="Post metrics">
         {metricItems.map((item) => {
           const Icon = item.icon;
+          const value =
+            item.key === "likes"
+              ? likesCount
+              : item.key === "comments"
+                ? commentsCount
+                : sharesCount;
 
           return (
             <span className="social-post-card__metric" key={item.key}>
               <Icon aria-hidden="true" size={26} strokeWidth={2.25} />
-              <span aria-label={`${metrics[item.key]} ${item.label}`}>
-                {metrics[item.key]}
-              </span>
+              <span aria-label={`${value} ${item.label}`}>{value}</span>
             </span>
           );
         })}

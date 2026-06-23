@@ -5,6 +5,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const authRouter = require("./routes/authRouter");
 const connectDB = require("./config/mongodb");
+const postRouter = require("./routes/postRouter");
 
 const PORT = process.env.PORT; // Port number for the server to listen on
 
@@ -23,6 +24,9 @@ app.use(cookieParser());
 
 /* Router for login and signup services */
 app.use("/api/auth", authRouter);
+
+/* Router for post services */
+app.use("/api", postRouter);
 
 connectDB().then(() => {
   server.listen(PORT, () => {
